@@ -8,6 +8,5 @@ services:
       - key: MODEL_PATH
         value: ../saved_models/2
     autoDeploy: true
-    regions:
-      - oregon  # Choose a region
-    plan: free  # Use free tier for testing
+    region: oregon  # Corrected to singular 'region'
+    plan: free      # Use free tier for testing
