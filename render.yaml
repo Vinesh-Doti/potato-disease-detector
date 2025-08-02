@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: potato-disease-api
+    env: python
+    buildCommand: "pip install -r api/requirements.txt"
+    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: MODEL_PATH
+        value: ../saved_models/2
+    autoDeploy: true
+    regions:
+      - oregon  # Choose a region
+    plan: free  # Use free tier for testing

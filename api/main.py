@@ -1,18 +1,15 @@
 from fastapi import FastAPI, File, UploadFile
-import uvicorn
 import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 
-origins=[
-    "http://localhost",
-    "http://localhost:3000"
-
-]
+# Configure CORS for Vercel frontend (replace with your actual Vercel URL)
+origins = ["https://potato-disease-detector.vercel.app/"]  # Update this with your Vercel URL
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,9 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# Load Keras model
-MODEL = tf.keras.models.load_model("../saved_models/2")
+# Load Keras model using environment variable for path
+model_path = os.getenv("MODEL_PATH", "../saved_models/2")  # Default to relative path if env var not set
+MODEL = tf.keras.models.load_model(model_path)
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
 @app.get("/ping")
@@ -53,6 +50,3 @@ async def predict(file: UploadFile = File(...)):
         }
     except Exception as e:
         return {"error": str(e)}
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
