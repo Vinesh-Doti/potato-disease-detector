@@ -1,6 +1,8 @@
-tensorflow==2.17.0
-fastapi==0.115.0
+tensorflow==2.18.0
+fastapi==0.116.0  # Latest stable as of Aug 2025, check PyPI
 uvicorn==0.30.6
-python-multipart==0.0.9
+python-multipart==0.0.18
 pillow==10.4.0
 numpy==1.26.4
+ml-dtypes==0.4.0  # Added to resolve jax conflict
+starlette==0.40.0  # Added to resolve gradio conflict
